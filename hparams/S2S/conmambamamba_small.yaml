@@ -14,7 +14,7 @@ __set_seed: !apply:torch.manual_seed [!ref <seed>]
 project: Mamba-ASR
 experiment: conmambamamba_S_S2S
 output_folder: !ref results/S2S/<experiment>/<seed>
-output_wer_folder: !ref <output_folder>/
+output_wer_folder: !ref <output_folder>/wer
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
@@ -50,7 +50,7 @@ no_lm: False
 # The global batch size is computed as batch_size * n_gpus * grad_accumulation_factor.
 # Empirically, we found that this value should be >= 128.
 # Please, set your parameters accordingly.
-number_of_epochs: 20
+number_of_epochs: 100
 batch_size: 2 # This works for 2x GPUs with 32GB
 ctc_weight: 0.3
 grad_accumulation_factor: 1
@@ -111,8 +111,8 @@ test_dataloader_opts:
 # Transformer
 d_model: 144
 nhead: 4
-num_encoder_layers: 6
-num_decoder_layers: 2
+num_encoder_layers: 12
+num_decoder_layers: 4
 d_ffn: 1024
 transformer_dropout: 0.1
 activation: !name:torch.nn.GELU
