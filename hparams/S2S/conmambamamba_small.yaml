@@ -32,15 +32,15 @@ data_folder: !PLACEHOLDER
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 # data_folder_rirs: !ref <data_folder>
-train_splits: ["train-clean-100", "train-clean-360", "train-other-500"]
+train_splits: ["dev-clean"]
 dev_splits: ["dev-clean"]
-test_splits: ["test-clean", "test-other"]
+test_splits: ["dev-clean"]
 skip_prep: False
 train_csv: !ref <output_folder>/train.csv
 valid_csv: !ref <output_folder>/dev-clean.csv
 test_csv:
-    - !ref <output_folder>/test-clean.csv
-    - !ref <output_folder>/test-other.csv
+    - !ref <output_folder>/dev-clean.csv
+    - !ref <output_folder>/dev-clean.csv
 
 skip_train: False
 no_lm: False
@@ -50,14 +50,14 @@ no_lm: False
 # The global batch size is computed as batch_size * n_gpus * grad_accumulation_factor.
 # Empirically, we found that this value should be >= 128.
 # Please, set your parameters accordingly.
-number_of_epochs: 110
-batch_size: 16 # This works for 2x GPUs with 32GB
+number_of_epochs: 20
+batch_size: 2 # This works for 2x GPUs with 32GB
 ctc_weight: 0.3
 grad_accumulation_factor: 1
 max_grad_norm: 5.0
 loss_reduction: 'batchmean'
 sorting: random
-num_workers: 8
+num_workers: 1
 precision: bf16 # bf16, fp16 or fp32
 avg_checkpoints: 10 # Number of checkpoints to average for evaluation
 
@@ -111,8 +111,8 @@ test_dataloader_opts:
 # Transformer
 d_model: 144
 nhead: 4
-num_encoder_layers: 12
-num_decoder_layers: 4
+num_encoder_layers: 6
+num_decoder_layers: 2
 d_ffn: 1024
 transformer_dropout: 0.1
 activation: !name:torch.nn.GELU
