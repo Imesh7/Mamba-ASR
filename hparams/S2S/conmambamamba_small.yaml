@@ -78,6 +78,8 @@ lr_adam: 0.001
 sample_rate: 24000
 n_fft: 512
 n_mels: 80
+win_length: 0.025   # 600 samples
+hop_length: 0.010   # 240 samples
 
 # This setup works well for V100 32GB GPU, adapts it to your needs.
 # Or turn it off (but training speed will decrease)
