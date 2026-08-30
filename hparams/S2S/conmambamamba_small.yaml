@@ -75,7 +75,7 @@ lr_adam: 0.001
 # lr_sgd: 0.000025
 
 # Feature parameters
-sample_rate: 16000
+sample_rate: 24000
 n_fft: 400
 n_mels: 80
 
@@ -119,8 +119,10 @@ test_dataloader_opts:
 # Transformer
 d_model: 144
 nhead: 4
-num_encoder_layers: 12
-num_decoder_layers: 4
+# num_encoder_layers: 12
+num_encoder_layers: 3
+# num_decoder_layers: 4
+num_decoder_layers: 2
 d_ffn: 1024
 transformer_dropout: 0.1
 activation: !name:torch.nn.GELU
@@ -136,7 +138,7 @@ eos_index: 2
 # Decoding parameters
 min_decode_ratio: 0.0
 max_decode_ratio: 1.0
-valid_search_interval: 1
+valid_search_interval: 5
 valid_beam_size: 10
 test_beam_size: 66
 lm_weight: 0.60
