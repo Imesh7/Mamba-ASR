@@ -76,7 +76,7 @@ lr_adam: 0.001
 
 # Feature parameters
 sample_rate: 24000
-n_fft: 400
+n_fft: 512
 n_mels: 80
 
 # This setup works well for V100 32GB GPU, adapts it to your needs.
