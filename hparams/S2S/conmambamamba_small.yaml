@@ -121,10 +121,10 @@ test_dataloader_opts:
 # Transformer
 d_model: 144
 nhead: 4
-# num_encoder_layers: 12
-num_encoder_layers: 4
-# num_decoder_layers: 4
-num_decoder_layers: 2
+num_encoder_layers: 12
+# num_encoder_layers: 4
+num_decoder_layers: 4
+# num_decoder_layers: 2
 d_ffn: 1024
 transformer_dropout: 0.1
 activation: !name:torch.nn.GELU
