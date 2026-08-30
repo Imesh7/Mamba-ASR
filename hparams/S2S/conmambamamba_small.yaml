@@ -47,7 +47,8 @@ data_folder: /mnt/my-kaggle-data/librispeech_data/synthetic_data
 
 train_csv: /mnt/my-kaggle-data/librispeech_data/synthetic_data/train.csv
 valid_csv: /mnt/my-kaggle-data/librispeech_data/synthetic_data/valid.csv
-test_csv: /mnt/my-kaggle-data/librispeech_data/synthetic_data/test.csv
+test_csv:
+    - /mnt/my-kaggle-data/librispeech_data/synthetic_data/test.csv
 
 skip_train: False
 no_lm: False
