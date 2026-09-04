@@ -26,7 +26,9 @@ from speechbrain.utils.dynamic_chunk_training import DynChunkTrainConfig
 
 # Mamba
 from mamba_ssm import Mamba
+from mamba_ssm import Mamba2
 from modules.mamba.bimamba import Mamba as BiMamba 
+from modules.mamba2.bimamba2 import Mamba2 as BiMamba2
 
 
 class ConvolutionModule(nn.Module):
@@ -258,17 +260,33 @@ class ConmambaEncoderLayer(nn.Module):
         assert mamba_config != None
 
         bidirectional = mamba_config.pop('bidirectional')
+        mamba_version = mamba_config.pop('mamba_version', 2)
         if causal or (not bidirectional):
-            self.mamba = Mamba(
-                d_model=d_model,
-                **mamba_config
-            )
+            if mamba_version == 1:
+                self.mamba = Mamba(
+                    d_model=d_model,
+                    **mamba_config
+                )
+            elif mamba_version == 2:
+                self.mamba = Mamba2(
+                    d_model=d_model,
+                    **mamba_config
+                )
+                
         else:
-            self.mamba = BiMamba(
-                d_model=d_model,
-                bimamba_type='v2',
-                **mamba_config
-            )
+            if mamba_version == 1:
+                self.mamba = BiMamba(
+                    d_model=d_model,
+                    bimamba_type='v2',
+                    **mamba_config
+                )
+            elif mamba_version == 2:
+                self.mamba = BiMamba2(
+                    d_model=d_model,
+                    bimamba_type='v2',
+                    **mamba_config
+                )
+                
         mamba_config['bidirectional'] = bidirectional
 
         self.convolution_module = ConvolutionModule(
@@ -426,16 +444,30 @@ class MambaDecoderLayer(nn.Module):
         assert mamba_config != None
 
         bidirectional = mamba_config.pop('bidirectional')
+        mamba_version = mamba_config.pop('mamba_version', 2)
+        
+        if mamba_version == 1:
+            self.self_mamba = Mamba(
+                d_model=d_model,
+                **mamba_config
+            )
 
-        self.self_mamba = Mamba(
-            d_model=d_model,
-            **mamba_config
-        )
+            self.cross_mamba = Mamba(
+                d_model=d_model,
+                **mamba_config
+            )
+            
+        elif mamba_version == 2:
+            
+            self.self_mamba = Mamba2(
+                d_model=d_model,
+                **mamba_config
+            )
 
-        self.cross_mamba = Mamba(
-            d_model=d_model,
-            **mamba_config
-        )
+            self.cross_mamba = Mamba2(
+                d_model=d_model,
+                **mamba_config
+            )
 
         mamba_config['bidirectional'] = bidirectional
 

@@ -141,6 +141,7 @@ expand: 2
 d_conv: 4
 bidirectional: True
 mamba_config:
+    mamba_version: 2
     d_state: !ref <d_state>
     expand: !ref <expand>
     d_conv: !ref <d_conv>
